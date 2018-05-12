@@ -1,5 +1,5 @@
 {
-  "name": "restler",
+  "name": "@gradecam/restler",
   "version": "3.4.0",
   "description": "An HTTP client library for node.js",
   "contributors": [
