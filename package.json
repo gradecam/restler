@@ -1,6 +1,6 @@
 {
   "name": "restler",
-  "version": "3.2.5",
+  "version": "3.4.0",
   "description": "An HTTP client library for node.js",
   "contributors": [
     {
@@ -28,12 +28,13 @@
     "test": "node test/all.js"
   },
   "dependencies": {
-    "qs": "1.2.0",
-    "xml2js": "0.4.0",
-    "yaml": "0.2.3",
-    "iconv-lite": "0.2.11"
+    "iconv-lite": "0.4.23",
+    "qs": "6.5.2",
+    "xml2js": "0.4.19",
+    "yaml": "0.3.0"
   },
   "devDependencies": {
-    "nodeunit": "0.8.2"
-  }
+    "nodeunit": "0.11.2"
+  },
+  "license": "MIT"
 }

@@ -335,6 +335,10 @@ function dataResponse(request, response) {
       response.writeHead(200, { 'content-type': 'application/xml' });
       response.end('<document><ok>true</ok></document>');
       break;
+    case '/big-xml':
+      response.writeHead(200, { 'content-type': 'application/xml' });
+      response.end('<documents type="array"><document><ok>true</ok></document></documents>');
+      break;
     case '/yaml':
       response.writeHead(200, { 'content-type': 'application/yaml' });
       response.end('ok: true');
@@ -431,6 +435,13 @@ module.exports['Deserialization'] = {
     });
   },
 
+  'Should parse XML with xml2js options': function(test) {
+    rest.get(host + '/big-xml', {xml2js: {explicitArray: false,ignoreAttrs: true}}).on('complete', function(data, response) {
+      test.equal(data.documents.document.ok, 'true', 'returned: ' + response.raw + ' parsed to ' + util.inspect(data));
+      test.done();
+    });
+  },
+
   'Should parse YAML': function(test) {
     rest.get(host + '/yaml').on('complete', function(data) {
       test.equal(data.ok, true, 'returned: ' + util.inspect(data));
@@ -518,6 +529,14 @@ module.exports['Deserialization'] = {
   'Should put and parse JSON via shortcut method': function(test) {
     var obj = { secret : 'very secret string' };
     rest.putJson(host + '/push-json', obj).on('complete', function(data) {
+      test.equal(obj.secret, data.secret, 'returned: ' + util.inspect(data));
+      test.done();
+    });
+  },
+
+  'Should patch and parse JSON via shortcut method': function(test) {
+    var obj = { secret : 'very secret string' };
+    rest.patchJson(host + '/push-json', obj).on('complete', function(data) {
       test.equal(obj.secret, data.secret, 'returned: ' + util.inspect(data));
       test.done();
     });
